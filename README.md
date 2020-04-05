@@ -1,0 +1,2 @@
+# CheckWhenDoIt
+Assertion helpers library
