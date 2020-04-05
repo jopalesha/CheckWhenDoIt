@@ -5,6 +5,10 @@
     <AssemblyName>Jopalesha.CheckWhenDoIt</AssemblyName>
     <RootNamespace>Jopalesha.CheckWhenDoIt</RootNamespace>
     <Nullable>enable</Nullable>
+    <Authors>Jopalesha</Authors>
+    <PackageDescription>Assertion helpers library</PackageDescription>
+    <RepositoryUrl>https://github.com/jopalesha/CheckWhenDoIt</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/jopalesha/CheckWhenDoIt</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
