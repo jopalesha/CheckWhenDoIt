@@ -1,5 +1,4 @@
 # CheckWhenDoIt
-Assertion helpers library
 
 Nothing special just replace this code
 
