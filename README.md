@@ -35,36 +35,12 @@ public class User
 ```
 
 Other methods:
-Markup:
-    * Check.IsTrue
-    * Check.NotNull
-    * Check.InBounds
-    * Check.In
-    * Check.Equals
-    etc
-
-
-* Bullet list
-    * Nested bullet
-        * Sub-nested bullet etc
-* Bullet list item 2
-
-~~~
- Markup : * Bullet list
-              * Nested bullet
-                  * Sub-nested bullet etc
-          * Bullet list item 2
-
--OR-
-
- Markup : - Bullet list
-              - Nested bullet
-                  - Sub-nested bullet etc
-          - Bullet list item 2 
-~~~
-
-
-
+* Check.IsTrue
+* Check.NotNull
+* Check.InBounds
+* Check.In
+* Check.Equals
+etc..
 
 ### Installing
 
