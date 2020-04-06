@@ -9,7 +9,7 @@ public class User
     {
         if (string.IsNullOrEmpty(name))
         {
-            throw new ArgumentNullException(nameof(name));
+            throw new ArgumentNullException();
         }
 
         Name = name;
