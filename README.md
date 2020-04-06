@@ -1,5 +1,6 @@
 # CheckWhenDoIt
 
+### Check
 Nothing special just replace this code
 
 ```csharp
@@ -41,6 +42,9 @@ Other methods:
 * Check.In
 * Check.Equals
 * etc..
+
+### When
+TODO
 
 ### Installing
 
