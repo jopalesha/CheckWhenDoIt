@@ -35,6 +35,7 @@ public class User
 ```
 
 Other methods:
+Markup:
     * Check.IsTrue
     * Check.NotNull
     * Check.InBounds
