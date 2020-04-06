@@ -40,7 +40,7 @@ Other methods:
 * Check.InBounds
 * Check.In
 * Check.Equals
-etc..
+* etc..
 
 ### Installing
 
