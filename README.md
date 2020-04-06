@@ -34,6 +34,13 @@ public class User
 }
 ```
 
+Other methods:
+    * Check.IsTrue
+    * Check.NotNull
+    * Check.InBounds
+    * Check.In
+    * Check.Equals
+    etc
 ### Installing
 
 You can install with [NuGet](https://www.nuget.org/packages/CheckWhenDoIt):
