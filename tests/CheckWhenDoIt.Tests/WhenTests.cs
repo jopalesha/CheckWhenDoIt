@@ -45,5 +45,21 @@ namespace Jopalesha.CheckWhenDoIt.Tests
             Assert.False(When.True(true).TryDo(() => throw new ArgumentNullException()));
             Assert.False(When.True(false).TryDo(It.DoNothing));
         }
+
+        [Fact]
+        public void WhenEquals_ReturnsExpected()
+        {
+            Assert.True(When.Equals(1, 1).Return(true));
+            Assert.True(When.Equals("abc", "ABC", StringComparer.OrdinalIgnoreCase).Return(true));
+            Assert.False(When.Equals(1, 2).Return(true));
+        }
+
+        [Fact]
+        public void WhenNotEquals_ReturnsExpceted()
+        {
+            Assert.True(When.NotEquals(1, 2).Return(true));
+            Assert.True(When.NotEquals("abc", "ABC", StringComparer.Ordinal).Return(true));
+            Assert.False(When.NotEquals(1, 1).Return(true));
+        }
     }
 }

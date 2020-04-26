@@ -9,10 +9,18 @@ namespace Jopalesha.CheckWhenDoIt.Tests
     public class CheckTests
     {
         [Fact]
+        public void NotNull_ReturnsExpected()
+        {
+            Assert.Equal(0, Check.NotNull(0));
+            Assert.Throws<ArgumentNullException>(() => Check.NotNull((string) null));
+            Assert.Throws<CustomException>(() => Check.NotNull((string) null, new CustomException()));
+        }
+
+        [Fact]
         public void NotEmptyEnumerable_ReturnsExpected()
         {
             Assert.True(Check.NotEmpty(new List<int> { 5 }).Any());
-            Assert.True(Check.NotEmpty(new Dictionary<int, int> { { 5, 5 } }).Any());
+            Assert.True(Check.NotEmpty(new Dictionary<int, int> {{5, 5}}).Any());
             Assert.Throws<ArgumentException>(() => Check.NotEmpty(Enumerable.Empty<int>()).Any());
             Assert.Throws<ArgumentException>(() => Check.NotEmpty((IEnumerable)null));
         }
@@ -21,16 +29,27 @@ namespace Jopalesha.CheckWhenDoIt.Tests
         public void NotEmptyString_ReturnsExpected()
         {
             Assert.True(!string.IsNullOrWhiteSpace(Check.NotEmpty("val")));
-            Assert.Throws<ArgumentException>(() => Check.NotEmpty(null));
+            Assert.Throws<ArgumentException>(() => Check.NotEmpty(null!));
             Assert.Throws<ArgumentException>(() => Check.NotEmpty(""));
         }
 
         [Fact]
-        public void IsTrue_ReturnsExpected()
+        public void True_ReturnsExpected()
         {
-            Assert.True(Check.IsTrue(5, It.IsNatural.Integer) == 5);
-            Assert.Throws<ArgumentException>(() => Check.IsTrue(false));
-            Assert.Throws<CustomException>(() => Check.IsTrue(false, new CustomException()));
+            Check.True(true);
+            Assert.True(Check.True(5, It.IsNatural) == 5);
+            Assert.Throws<ArgumentException>(() => Check.True(false));
+            Assert.Throws<CustomException>(() => Check.True(false, new CustomException()));
+        }
+
+        [Fact]
+        public void False_ReturnsExpected()
+        {
+            Check.False(false);
+            Assert.Equal(-1, Check.False(-1, It.IsPositive.Integer));
+            Assert.Equal(1, Check.False(1, false));
+            Assert.Throws<ArgumentException>(() => Check.False(true));
+            Assert.Throws<CustomException>(() => Check.False(true, new CustomException()));
         }
 
         [Fact]
@@ -83,6 +102,14 @@ namespace Jopalesha.CheckWhenDoIt.Tests
             Assert.Equal(2, Check.Less(2, 3));
             Assert.Throws<ArgumentException>(() => Check.Less(2, 1));
             Assert.Throws<CustomException>(() => Check.Less(2, 2, new CustomException()));
+        }
+
+        [Fact]
+        public void NotDefault_ReturnsExpected()
+        {
+            Assert.Equal(1, Check.NotDefault(1));
+            Assert.Throws<ArgumentException>(() => Check.NotDefault(0));
+            Assert.Throws<CustomException>(() => Check.NotDefault(0, new CustomException()));
         }
     }
 }

@@ -11,59 +11,111 @@ namespace Jopalesha.CheckWhenDoIt
         private const string IsEmptyMessage = "Value is null of empty";
         private const string IsNotTrueMessage = "Condition is not true";
 
-        #region IsTrue
+        #region True
 
-        public static T IsTrue<T>(
+        public static T True<T>(
             T value,
             Func<T, bool> condition,
             string? paramName = null,
             string? message = IsNotTrueMessage)
         {
-            IsTrue(NotNull(condition)(value), paramName, message);
+            True(NotNull(condition)(value), paramName, message);
             return value;
         }
 
-        public static T IsTrue<T>(
+        public static T True<T>(
             T value,
             Func<T, bool> condition,
             Exception exception)
         {
-            IsTrue(NotNull(condition)(value), NotNull(exception));
+            True(NotNull(condition)(value), NotNull(exception));
             return value;
         }
 
-        public static T IsTrue<T>(
+        public static T True<T>(
             T value,
             bool condition,
             Exception exception)
         {
-            IsTrue(condition, NotNull(exception));
+            True(condition, NotNull(exception));
             return value;
         }
 
-        public static T IsTrue<T>(
+        public static T True<T>(
             T value,
             bool condition,
             string? paramName = null,
             string? message = IsNotTrueMessage)
         {
-            IsTrue(condition, paramName, message);
+            True(condition, paramName, message);
             return value;
         }
 
-        public static void IsTrue(
+        public static void True(
             bool condition,
             string? paramName = null,
             string? message = IsNotTrueMessage)
         {
-            IsTrue(condition, new ArgumentException(message, paramName));
+            True(condition, new ArgumentException(message, paramName));
         }
 
-        public static void IsTrue(
+        public static void True(
             bool condition,
             Exception exception)
         {
-            if (!condition) throw exception;
+            if (!condition) throw NotNull(exception);
+        }
+
+        #endregion
+
+        #region False
+
+        public static void False(
+            bool condition,
+            string? paramName = null,
+            string? message = IsNotTrueMessage)
+        {
+            False(condition, new ArgumentException(message, paramName));
+        }
+
+        public static void False(
+            bool condition,
+            Exception exception) => True(!condition, exception);
+
+        public static T False<T>(
+            T value,
+            Func<T, bool> condition,
+            string? paramName = null,
+            string? message = IsNotTrueMessage)
+        {
+            return False(value, condition, new ArgumentException(message, paramName));
+        }
+
+        public static T False<T>(
+            T value,
+            Func<T, bool> condition,
+            Exception exception)
+        {
+            False(NotNull(condition)(value), NotNull(exception));
+            return value;
+        }
+
+        public static T False<T>(
+            T value,
+            bool condition,
+            string? paramName = null,
+            string? message = IsNotTrueMessage)
+        {
+            return False(value, condition, new ArgumentException(message, paramName));
+        }
+
+        public static T False<T>(
+            T value,
+            bool condition,
+            Exception exception)
+        {
+            False(condition, exception);
+            return value;
         }
 
         #endregion
@@ -71,16 +123,16 @@ namespace Jopalesha.CheckWhenDoIt
         #region IsPositive
 
         public static int IsPositive(int value, string? paramName = null, string? message = IsNotTrueMessage) =>
-            IsTrue(value, It.IsPositive.Integer, paramName, message);
+            True(value, It.IsPositive.Integer, paramName, message);
 
         public static double IsPositive(double value, string? paramName = null, string? message = IsNotTrueMessage) =>
-            IsTrue(value, It.IsPositive.Double, paramName, message);
+            True(value, It.IsPositive.Double, paramName, message);
 
         public static double IsPositive(float value, string? paramName = null, string? message = IsNotTrueMessage) =>
-            IsTrue(value, It.IsPositive.Float, paramName, message);
+            True(value, It.IsPositive.Float, paramName, message);
 
         public static double IsPositive(long value, string? paramName = null, string? message = IsNotTrueMessage) =>
-            IsTrue(value, It.IsPositive.Long, paramName, message);
+            True(value, It.IsPositive.Long, paramName, message);
 
         #endregion
 
@@ -119,10 +171,15 @@ namespace Jopalesha.CheckWhenDoIt
             IComparer<T> comparer,
             Exception exception)
         {
-            return IsTrue(value, NotNull(comparer).Compare(value, equalValue) == 0, exception);
+            return True(value, NotNull(comparer).Compare(value, equalValue) == 0, exception);
         }
 
         #endregion
+
+        public static int IsNatural(int value, string? paramName = null, string? message = IsNotTrueMessage)
+        {
+            return True(value, It.IsNatural, paramName, message);
+        }
 
         public static T InBounds<T>(
             T value,
@@ -130,31 +187,35 @@ namespace Jopalesha.CheckWhenDoIt
             T max,
             string? paramName = null,
             string? message = IsNotTrueMessage) where T : IComparable<T> =>
-            IsTrue(value, It.InBounds(min, max), paramName, message);
+            True(value, It.InBounds(min, max), paramName, message);
 
         public static T NotNull<T>(
             T value,
             string? paramName = null,
-            string? message = IsNullMessage) => value ?? throw new ArgumentNullException(paramName, message);
+            string? message = IsNullMessage) => NotNull(value, new ArgumentNullException(paramName, message));
+
+        public static T NotNull<T>(
+            T value,
+            Exception exception) => value ?? throw exception;
 
         public static TEnumerable NotEmpty<TEnumerable>(
             TEnumerable values,
             string? paramName = null,
             string? message = IsEmptyMessage)
-            where TEnumerable : IEnumerable => IsTrue(values, it => !it.IsNullOrEmpty(), paramName, message);
+            where TEnumerable : IEnumerable => True(values, it => !it.IsNullOrEmpty(), paramName, message);
 
         public static string NotEmpty(
             string value,
             string? paramName = null,
             string? message = IsEmptyMessage) =>
-            IsTrue(value, it => !string.IsNullOrWhiteSpace(it), paramName, message);
+            True(value, it => !string.IsNullOrWhiteSpace(it), paramName, message);
 
         public static T In<T>(
             T value,
             IEnumerable<T> values,
             string? paramName = null,
             string? message = "Collection does not contain value") =>
-            IsTrue(value, it => it.In(NotNull(values)), paramName, message);
+            True(value, it => it.In(NotNull(values)), paramName, message);
 
         public static T Greater<T>(
             T value,
@@ -170,7 +231,7 @@ namespace Jopalesha.CheckWhenDoIt
             T less,
             Exception exception) where T : IComparable<T>
         {
-            return IsTrue(value, It.Greater(less), exception);
+            return True(value, It.Greater(less), exception);
         }
 
         public static T Less<T>(
@@ -187,7 +248,22 @@ namespace Jopalesha.CheckWhenDoIt
             T greater,
             Exception exception) where T:IComparable<T>
         {
-            return IsTrue(value, It.Less(greater), exception);
+            return True(value, It.Less(greater), exception);
+        }
+
+        public static T NotDefault<T>(
+            T value,
+            string? paramName = null,
+            string? message = IsNotTrueMessage)
+        {
+            return NotDefault(value, new ArgumentException(message, paramName));
+        }
+
+        public static T NotDefault<T>(
+            T value,
+            Exception exception)
+        {
+            return True(value, It.IsNotDefault<T>(), exception);
         }
     }
 }

@@ -46,6 +46,16 @@ namespace Jopalesha.CheckWhenDoIt
             return Equals(value, equalValue, Comparer<T>.Default);
         }
 
+        public static ICondition NotEquals<T>(T value, T notEqualValue)
+        {
+            return NotEquals(value, notEqualValue, Comparer<T>.Default);
+        }
+
+        public static ICondition NotEquals<T>(T value, T equalValue, IComparer<T> comparer)
+        {
+            return new BoolCondition(Check.NotNull(comparer).Compare(value, equalValue) != 0);
+        }
+
         public static ICondition Equals<T>(T value, T equalValue, IComparer<T> comparer)
         {
             return new BoolCondition(Check.NotNull(comparer).Compare(value, equalValue) == 0);

@@ -9,6 +9,10 @@
     <PackageDescription>Assertion helpers library</PackageDescription>
     <RepositoryUrl>https://github.com/jopalesha/CheckWhenDoIt</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jopalesha/CheckWhenDoIt</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.2</Version>
+    <PackageId>CheckWhenDoIt</PackageId>
+    <Product>CheckWhenDoIt</Product>
   </PropertyGroup>
 
 </Project>

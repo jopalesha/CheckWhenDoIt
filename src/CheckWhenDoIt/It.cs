@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Jopalesha.CheckWhenDoIt
 {
@@ -20,7 +21,20 @@ namespace Jopalesha.CheckWhenDoIt
 
         public static Func<T, bool> Greater<T>(T value) where T : IComparable<T> => it => it.CompareTo(value) > 0;
 
+        public static Func<T, bool> GreaterOrEqual<T>(T value) where T : IComparable<T> =>
+            it => it.CompareTo(value) >= 0;
+
+        public static Func<T, bool> LessOrEqual<T>(T value) where T : IComparable<T> => it => it.CompareTo(value) <= 0;
+
         public static Func<T, bool> Less<T>(T value) where T : IComparable<T> => it => it.CompareTo(value) < 0;
+
+        public static Func<int, bool> IsNatural => it => it >= 0;
+
+        public static Func<T, bool> IsDefault<T>() =>
+            it => EqualityComparer<T>.Default.Equals(it, default!);
+
+        public static Func<T, bool> IsNotDefault<T>() =>
+            it => !EqualityComparer<T>.Default.Equals(it, default!);
 
         public static class IsPositive
         {
@@ -31,11 +45,6 @@ namespace Jopalesha.CheckWhenDoIt
             public static Func<float, bool> Float => it => it > 0;
 
             public static Func<long, bool> Long => it => it > 0;
-        }
-
-        public static class IsNatural
-        {
-            public static Func<int, bool> Integer => it => it >= 0;
         }
     }
 }
